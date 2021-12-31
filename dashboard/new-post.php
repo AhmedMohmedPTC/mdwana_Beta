@@ -1,6 +1,5 @@
 <?php
 session_start();
-include "includes/class-autoload.inc.php";
 include 'include/connection.php';
 include 'include/header.php';
 if (!isset($_SESSION['adminInfo'])) {
@@ -53,14 +52,14 @@ if (!isset($_SESSION['adminInfo'])) {
             } elseif (isset($success)) {
                 echo $success;
             }
-            
-
-            include 'include/model.php';
-            $model = new Model();
-            $insert = $model->insert();
 
         ?>
-            
+              <?php
+                    include '../models/modelPos.php';
+                    $model = new Model();
+                    $insert = $model->insert();
+
+                    ?>
             <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="title">عنوان المنشور</label>

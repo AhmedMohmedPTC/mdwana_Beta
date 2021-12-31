@@ -1,29 +1,8 @@
 <?php
 
-include 'dashboard/include/connection.php';
 include 'layout/include/header.php';
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-$Name = $_POST['Name'];
-$Email = $_POST['Email'];
-$Subject = $_POST['Subject'];
-$Message = $_POST['Message'];
-if (empty($Name) || empty($Email)  || empty($Subject) || empty($Message)) {
-    $error = "<div class='alert alert-danger'>" . "الرجاء ملء الحقول أدناه" . "</div>";
-}
-else {
 
-
-    $query = "INSERT INTO message(Name,Email,Subject,Message)
-            VALUES('$Name','$Email','$Subject','$Message')";
-
-
-    $res = mysqli_query($con, $query);
-    if (isset($res)) {
-        $success = "<div class='alert alert-success'>" . "تم إرسال الرسالة بنجاح" . "</div>";
-    }
-}
-}
 ?>
 
 <div class="container" style="width: 100%; margin-top: 5px; margin-left: 10%; ">
@@ -43,7 +22,14 @@ else {
                     ?>
                 </div>
                 <div class="card-body">
-                    <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post" enctype="multipart/form-data">
+
+                <?php
+                    include 'models/modelMsg.php';
+                    $model = new Model();
+                    $insert = $model->insert();
+
+                    ?>
+                    <form action="" method="post" enctype="multipart/form-data">
                         <label for="title">الاسم </label>
                         <input type="text" id="title" class="form-control mb-2"  name="Name" value="<?php if (isset($Name)) {
                             echo $Name;

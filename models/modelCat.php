@@ -5,7 +5,7 @@
 		private $server = "localhost";
 		private $username = "root";
 		private $password;
-		private $db = "mdwanabeta";
+		private $db = "mdwanaBeta";
 		private $conn;
 
 		public function __construct(){
@@ -19,16 +19,14 @@
 
 		public function insert(){
 
-			if (isset($_POST['submit'])) {
-				if (isset($_POST['postTitle']) && isset($_POST['postCat']) && isset($_POST['postCover']) && isset($_POST['postContent'])) {
-					if (!empty($_POST['postTitle']) && !empty($_POST['postCat']) && !empty($_POST['postCover']) && !empty($_POST['postContent']) ) {
-						
-						$postTitle = $_POST['postTitle'];
-						$mobile = $_POST['postCat'];
-						$email = $_POST['postCover'];
-						$address = $_POST['postContent'];
+			if (isset($_POST['log'])) {
+				
+				if (isset($_POST['category'])) {
 
-						$query = "INSERT INTO posts (postTitle,postCat,mobile,address) VALUES ('$postTitle','$postCat','$postCover','$postContent')";
+					if (!empty($_POST['category']) ) {
+						$category = $_POST['category'];
+
+						$query = "INSERT INTO categories(categoryName) VALUES('$category')";
 						if ($sql = $this->conn->query($query)) {
 							echo "<script>alert('records added successfully');</script>";
 							echo "<script>window.location.href = 'index.php';</script>";
@@ -48,7 +46,7 @@
 		public function fetch(){
 			$data = null;
 
-			$query = "SELECT * FROM posts";
+			$query = "SELECT * FROM categories";
 			if ($sql = $this->conn->query($query)) {
 				while ($row = mysqli_fetch_assoc($sql)) {
 					$data[] = $row;
@@ -59,7 +57,7 @@
 
 		public function delete($id){
 
-			$query = "DELETE FROM records where id = '$id'";
+			$query = "DELETE FROM categories where id = '$id'";
 			if ($sql = $this->conn->query($query)) {
 				return true;
 			}else{
@@ -71,7 +69,7 @@
 
 			$data = null;
 
-			$query = "SELECT * FROM records WHERE id = '$id'";
+			$query = "SELECT * FROM categories WHERE id = '$id'";
 			if ($sql = $this->conn->query($query)) {
 				while ($row = $sql->fetch_assoc()) {
 					$data = $row;
@@ -84,7 +82,7 @@
 
 			$data = null;
 
-			$query = "SELECT * FROM records WHERE id = '$id'";
+			$query = "SELECT * FROM categories WHERE id = '$id'";
 			if ($sql = $this->conn->query($query)) {
 				while($row = $sql->fetch_assoc()){
 					$data = $row;
@@ -95,7 +93,7 @@
 
 		public function update($data){
 
-			$query = "UPDATE records SET name='$data[name]', email='$data[email]', mobile='$data[mobile]', address='$data[address]' WHERE id='$data[id] '";
+			$query = "UPDATE categories SET name='$data[name]', email='$data[email]', mobile='$data[mobile]', address='$data[address]' WHERE id='$data[id] '";
 
 			if ($sql = $this->conn->query($query)) {
 				return true;
@@ -105,4 +103,4 @@
 		}
 	}
 
- ?>
+ ?>     

@@ -63,7 +63,6 @@ if (!isset($_SESSION['adminInfo'])) {
                     while ($row = mysqli_fetch_assoc($res)) {
                         $sNo++;
                         ?>
-
                         <tr>
                             <td><?php echo $sNo; ?></td>
                             <td><?php echo $row['Name']; ?></td>
